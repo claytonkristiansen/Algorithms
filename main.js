@@ -1,8 +1,8 @@
 
 var xUnit = 20;
 var yUnit = 20;
-var width = 5;
-var height = 5;
+var width = 20;
+var height = 20;
 
 
 var graph = new Graph(width + 1, height + 1);
