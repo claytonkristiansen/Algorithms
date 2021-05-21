@@ -32,7 +32,8 @@ class MPQ //Will base on binary heap later
 class Vertex
 {
     Activated = true;
-    Visitied = false;
+    Visited = false;
+    JustChanged = false;
     ID;
     adjacencyList;
     // constructor(ID)
@@ -67,6 +68,18 @@ class Vertex
     IsActivated()
     {
         return this.Activated;
+    }
+    GetID()
+    {
+        return this.ID;
+    }
+    SetJustChanged(status)
+    {
+        this.JustChanged = status;
+    }
+    GetJustChanged()
+    {
+        return this.JustChanged;
     }
 }
 
@@ -180,6 +193,31 @@ class Graph
         
     }
 
+    Reset()
+    {
+        for(let i = 0; i < this.vertices.length; i++)
+        {
+            this.vertices[i].Activate();
+        }
+    }
+
+    GetVertex(yPos, xPos)
+    {
+        if(yPos >= 0 && yPos < this.height && xPos >= 0 && xPos < this.width)
+        {
+            return this.vertices[yPos * this.width + xPos];
+        }
+    }
+
+    GetVertexChanged(yPos, xPos)
+    {
+        if(yPos >= 0 && yPos < this.height && xPos >= 0 && xPos < this.width)
+        {
+            return this.vertices[yPos * this.width + xPos].GetJustChanged();
+        }
+        return true;
+    }
+
     Activated(yPos, xPos)
     {
         if(yPos >= 0 && yPos < this.height && xPos >= 0 && xPos < this.width)
@@ -222,6 +260,14 @@ class Graph
             StringList.push(" {[" + edgeList[i].toVertex + "]:" + edgeList[i].weight + "-(" + status + ")}");
         }
         return StringList;
+    }
+
+    SetAllNotChanged()
+    {
+        for(let i = 0; i < this.vertices.length; i++)
+        {
+            this.vertices[i].SetJustChanged(false);
+        }
     }
 
     Print()
