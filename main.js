@@ -1,8 +1,8 @@
 
-var xUnit = 20;
-var yUnit = 20;
-var width = 20;
-var height = 20;
+var xUnit = 32;
+var yUnit = 32;
+var width = 16;
+var height = 16;
 var clickStatus = false;
 var rStatus = false;
 
