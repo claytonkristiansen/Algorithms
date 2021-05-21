@@ -1,7 +1,7 @@
 class GridPainter 
 {
-    xOffset = 100;
-    yOffset = 100;
+    xOffset = 10;
+    yOffset = 10;
     constructor() 
     {
     }
