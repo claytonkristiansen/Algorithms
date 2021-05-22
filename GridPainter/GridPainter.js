@@ -85,7 +85,25 @@ class GridPainter
                 {
                     this.drawNode(this.xUnit * k + this.xOffset, this.yUnit * i + this.yOffset, 'blue');
                 }
+                if(graph.GetVertex(i, k) == graph.beginVertex)
+                {
+                    this.drawNode(this.xUnit * k + this.xOffset, this.yUnit * i + this.yOffset, 'green');
+                }
+                if(graph.GetVertex(i, k) == graph.endVertex)
+                {
+                    this.drawNode(this.xUnit * k + this.xOffset, this.yUnit * i + this.yOffset, 'red');
+                }
             }
+        }
+    }
+
+    DrawPath(pointArr)
+    {
+        for(let i = 0; i < pointArr.length - 1; i++)
+        {
+            this.drawLine(  pointArr[i][1] * this.xUnit, pointArr[i][0] * this.yUnit,
+                            pointArr[i + 1][1] * this.xUnit, pointArr[i + 1][0] * this.yUnit, 
+                            2, 'red');
         }
     }
 }

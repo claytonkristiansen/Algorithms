@@ -96,6 +96,8 @@ class Edge
 
 class Graph
 {
+    beginVertex;
+    endVertex;
     constructor(height, width)
     {
         this.height = height;
@@ -161,6 +163,9 @@ class Graph
                 }
             }
         }
+        
+        this.beginVertex = this.GetVertex(0, 0);
+        this.endVertex = this.GetVertex(height - 1, width - 1);
     }
     BuildFromFile(inputFileName)
     {
@@ -191,6 +196,22 @@ class Graph
             })
 
         
+    }
+
+    SetBeginVertex(xIndex, yIndex)
+    {
+        if(yIndex >= 0 && yIndex < this.height && xIndex >= 0 && xIndex < this.width)
+        {
+            this.beginVertex = this.vertices[yIndex * this.width + xIndex];
+        }
+    }
+
+    SetEndVertex(xIndex, yIndex)
+    {
+        if(yIndex >= 0 && yIndex < this.height && xIndex >= 0 && xIndex < this.width)
+        {
+            this.endVertex = this.vertices[yIndex * this.width + xIndex];
+        }
     }
 
     Reset()

@@ -5,6 +5,8 @@ var width = 16;
 var height = 16;
 var clickStatus = false;
 var rStatus = false;
+var mousePosX;
+var mousePosY;
 
 var graph = new Graph(width + 1, height + 1);
 canvas = /** @type {HTMLCanvasElement} */ (document.getElementById('canvas'));
@@ -35,14 +37,14 @@ canvas.addEventListener('mouseup', e => {
 });
 
 document.addEventListener('keydown', (e) => {
-    if (!e.repeat && e.key == 'r') {
+    if (!e.repeat && e.code == 'KeyR') {
         rStatus = true;
         console.log("r was pressed");
     }
 });
 
 document.addEventListener('keyup', (e) => {
-    if(e.key == 'r')
+    if(e.code == 'KeyR')
     {
         rStatus = false;
         console.log("r was let go");
@@ -52,18 +54,33 @@ document.addEventListener('keyup', (e) => {
         graph.Reset();
         gridPainter.drawGrid(graph);
     }
-    else if(e.code = 'p')
+    else if(e.code == 'KeyP')
     {
         graph.Print();
     }
-    
+    else if(e.code == 'KeyS' || e.code == 'KeyB')
+    {
+        var nearestY = gridPainter.relativeY(mousePosY, yUnit);
+        var nearestX = gridPainter.relativeX(mousePosX, xUnit);
+        graph.SetBeginVertex(nearestX/xUnit, nearestY/yUnit);
+        gridPainter.drawGrid(graph);
+    }
+    else if(e.code == 'KeyF' || e.code == 'KeyE')
+    {
+        var nearestY = gridPainter.relativeY(mousePosY, yUnit);
+        var nearestX = gridPainter.relativeX(mousePosX, xUnit);
+        graph.SetEndVertex(nearestX/xUnit, nearestY/yUnit);
+        gridPainter.drawGrid(graph);
+    }
 });
 
 // Mouse event handlers (probably should be in a class)
 canvas.addEventListener('mousemove', e => {
     // Find nearest grid intersection
-    var nearestY = gridPainter.relativeY(e.offsetY, yUnit);
-    var nearestX = gridPainter.relativeX(e.offsetX, xUnit);
+    mousePosY = e.offsetY;
+    mousePosX = e.offsetX;
+    var nearestY = gridPainter.relativeY(mousePosY, yUnit);
+    var nearestX = gridPainter.relativeX(mousePosX, xUnit);
     if(!graph.GetVertexChanged(nearestY/yUnit, nearestX/xUnit) && (clickStatus || rStatus))
     {
         if(graph.Activated(nearestY/yUnit, nearestX/xUnit) && clickStatus)
@@ -80,3 +97,6 @@ canvas.addEventListener('mousemove', e => {
     
 });
 
+points = [[0, 0], [1, 0], [2, 0], [2, 1], [2, 2], [3, 3], [4, 4], [4, 5], [5, 5], [4, 7], [5, 7]];
+
+gridPainter.DrawPath(points);
