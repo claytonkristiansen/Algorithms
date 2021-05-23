@@ -72,6 +72,12 @@ document.addEventListener('keyup', (e) => {
         graph.SetEndVertex(nearestX/xUnit, nearestY/yUnit);
         gridPainter.drawGrid(graph);
     }
+    else if(e.code == 'Enter')
+    {
+        DikstrasA(graph)
+        gridPainter.drawGrid(graph);
+        gridPainter.DrawPath(ShortestPathPoints(graph, graph.endVertex.GetID()));
+    }
 });
 
 // Mouse event handlers (probably should be in a class)
@@ -99,4 +105,3 @@ canvas.addEventListener('mousemove', e => {
 
 points = [[0, 0], [1, 0], [2, 0], [2, 1], [2, 2], [3, 3], [4, 4], [4, 5], [5, 5], [4, 7], [5, 7]];
 
-gridPainter.DrawPath(points);
