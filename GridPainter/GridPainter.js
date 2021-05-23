@@ -83,7 +83,7 @@ class GridPainter
             {
                 if(!graph.Activated(i, k))
                 {
-                    this.drawNode(this.xUnit * k + this.xOffset, this.yUnit * i + this.yOffset, 'blue');
+                    this.drawNode(this.xUnit * k + this.xOffset, this.yUnit * i + this.yOffset, 'black');
                 }
                 if(graph.GetVertex(i, k) == graph.beginVertex)
                 {
@@ -103,7 +103,7 @@ class GridPainter
         {
             this.drawLine(  pointArr[i][1] * this.xUnit, pointArr[i][0] * this.yUnit,
                             pointArr[i + 1][1] * this.xUnit, pointArr[i + 1][0] * this.yUnit, 
-                            2, 'red');
+                            2, 'blue');
         }
     }
 }

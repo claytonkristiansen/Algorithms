@@ -1,8 +1,8 @@
 
-var xUnit = 32;
-var yUnit = 32;
-var width = 16;
-var height = 16;
+var xUnit = 16;
+var yUnit = 16;
+var width = 45;
+var height = 45;
 var clickStatus = false;
 var rStatus = false;
 var mousePosX;
@@ -74,9 +74,8 @@ document.addEventListener('keyup', (e) => {
     }
     else if(e.code == 'Enter')
     {
-        DikstrasA(graph)
         gridPainter.drawGrid(graph);
-        gridPainter.DrawPath(ShortestPathPoints(graph, graph.endVertex.GetID()));
+        gridPainter.DrawPath(graph.DikstrasA());
     }
 });
 

@@ -310,59 +310,65 @@ class Graph
             console.log(this.vertices[i].ID + ":" + this.StringifyEdgeList(this.vertices[i].adjacencyList));
         }
     }
-}
 
-function Relax(fromV, edge)
-{
-    if(graph.GetVertex(edge.toVertex[0], edge.toVertex[1]).distance > fromV.distance + edge.weight)
+    Relax(fromV, edge)
     {
-        graph.GetVertex(edge.toVertex[0], edge.toVertex[1]).distance = fromV.distance + edge.weight; 
-        graph.GetVertex(edge.toVertex[0], edge.toVertex[1]).prevVertex = fromV;
-    }
-}
-
-function DikstrasA(graph)
-{
-    var set1 = new Set([]);
-    let mpq = new VMPQ();
-    for(let i = 0; i < graph.vertices.length; i++)
-    {
-        graph.vertices[i].distance = MAX_PATH_LENGTH;
-        graph.vertices[i].prevVertex = undefined;
-    }
-    graph.beginVertex.distance = 0;
-    for(let i = 0; i < graph.vertices.length; i++)
-    {
-        if(graph.vertices[i].Activated)
+        if(this.GetVertex(edge.toVertex[0], edge.toVertex[1]).distance > fromV.distance + edge.weight)
         {
-            mpq.Push(graph.vertices[i]);
+            this.GetVertex(edge.toVertex[0], edge.toVertex[1]).distance = fromV.distance + edge.weight; 
+            this.GetVertex(edge.toVertex[0], edge.toVertex[1]).prevVertex = fromV;
         }
     }
-    while(!mpq.Empty())
+
+    ShortestPathPoints()
     {
-        curr = mpq.Pop();
-        set1.add(curr);
-        for(let i = 0; i < curr.adjacencyList.length; i++)
+        var endID = this.endVertex.GetID();
+        var IDList = [endID];
+        var currVertex = this.GetVertex(endID[0], endID[1]);
+        while(currVertex.prevVertex != undefined)
         {
-            if(graph.Activated(curr.adjacencyList[i].toVertex[0], curr.adjacencyList[i].toVertex[1]))
+            var prevVertex = currVertex.prevVertex;
+            var prevID = prevVertex.GetID();
+            
+            IDList.push(prevID);
+            currVertex = prevVertex;
+        }
+        return IDList;
+    }
+
+    DikstrasA()
+    {
+        var set1 = new Set([]);
+        let mpq = new VMPQ();
+        for(let i = 0; i < this.vertices.length; i++)
+        {
+            this.vertices[i].distance = MAX_PATH_LENGTH;
+            this.vertices[i].prevVertex = undefined;
+        }
+        this.beginVertex.distance = 0;
+        for(let i = 0; i < this.vertices.length; i++)
+        {
+            if(this.vertices[i].Activated)
             {
-                Relax(curr, curr.adjacencyList[i])
+                mpq.Push(this.vertices[i]);
             }
         }
+        while(!mpq.Empty())
+        {
+            var curr = mpq.Pop();
+            set1.add(curr);
+            for(let i = 0; i < curr.adjacencyList.length; i++)
+            {
+                if(this.Activated(curr.adjacencyList[i].toVertex[0], curr.adjacencyList[i].toVertex[1]))
+                {
+                    this.Relax(curr, curr.adjacencyList[i])
+                }
+            }
+        }
+        return this.ShortestPathPoints();
     }
+
+    
+
 }
 
-function ShortestPathPoints(graph, toVertexID)
-{
-    IDList = [toVertexID];
-    var currVertex = graph.GetVertex(toVertexID[0], toVertexID[1]);
-    while(currVertex.prevVertex != undefined)
-    {
-        var prevVertex = currVertex.prevVertex;
-        var prevID = prevVertex.GetID();
-        
-        IDList.push(prevID);
-        currVertex = prevVertex;
-    }
-    return IDList;
-}
