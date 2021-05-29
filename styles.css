@@ -1,4 +1,8 @@
+
 h1{
     color:red;
     text-align: center;
+}
+canvas{
+    align-self: center;
 }
