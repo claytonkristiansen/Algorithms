@@ -7,12 +7,21 @@
     </head>
     <body>
         <h1 id="header">Grid Painter</h1>
-        <canvas width="1200" height="780" id="canvas" style="border: 1px solid rgb(0, 0, 0, 0);"></canvas>
+        <ul>
+            <li>Press <b>B</b> or <b>S</b> while hovering over an intersection to select begin/start point</li>
+            <li>Press <b>E</b> or <b>F</b> while hovering over an intersection to select end/finish point</li>
+            <li><b>Left Click</b> on an intersection to add/remove obstacle</li>
+            <li><b>Left Click</b> and <b>drag</b> to leave a trail of obstacles</li>
+            <li>Hole <b>R</b> and <b>Left Click</b> and <b>drag</b> to erase </li>
+            <li>Press <b>Esc</b> to clear the grid</li>
+            <li>Press <b>ENTER</b> to run Dikstra's and find the shortest path</li>
+        </ul>
+        <!-- <canvas width="1200" height="780" id="canvas" style="border: 1px solid rgb(0, 0, 0, 0);"></canvas> -->
         <script src="./GridPainter/GridPainter.js"></script>
         <script src="./DikstrasJS/Dikstras.js"></script>
         <script src="./main.js"></script>
     </body>
-    <button onclick="window.location.href='page2.html'">
+    <!-- <button onclick="window.location.href='page2.html'" style="float: right;">
         Go to second page lol
-    </button>
+    </button> -->
 </html>

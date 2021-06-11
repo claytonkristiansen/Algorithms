@@ -1,17 +1,26 @@
 
 var xUnit = 16;
 var yUnit = 16;
-var width = 45;
-var height = 45;
+var width = 40;
+var height = 40;
 var clickStatus = false;
 var rStatus = false;
 var mousePosX;
 var mousePosY;
 
+var canvas = document.createElement('canvas');
+canvas.id = "canvas";
+canvas.style.position = "absolute";
+canvas.style.border = "border: 1px solid rgb(0, 0, 0, 0);";
+var body = document.getElementsByTagName("body")[0];
+body.appendChild(canvas);
+
 var graph = new Graph(width + 1, height + 1);
-canvas = /** @type {HTMLCanvasElement} */ (document.getElementById('canvas'));
+// canvas = /** @type {HTMLCanvasElement} */ (document.getElementById('canvas'));
 var ctx = canvas.getContext('2d');
 var gridPainter = new GridPainter(ctx, xUnit, yUnit, width, height);
+canvas.width = xUnit * width + 2 * gridPainter.xOffset;
+canvas.height = yUnit * height + 2 * gridPainter.yOffset;
 gridPainter.drawGrid(graph);
 
 
