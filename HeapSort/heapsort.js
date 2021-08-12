@@ -182,7 +182,10 @@ function oninputkeypress(event, val)
 {
     if(isNaN(val) || processingFlag)
     {
-        document.getElementById("valinput").value = "";
+        if(event.keyCode == "13")
+        {
+            document.getElementById("valinput").value = "";
+        }
     }
     else if(val != "")
     {
