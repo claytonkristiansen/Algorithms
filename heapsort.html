@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Heap Sort</title>
+        <h1>Heap Sort</h1>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    
+    <body>
+        <br></br>
+        <input id="valinput" placeholder="Enter number" onkeypress="oninputkeypress(event, document.getElementById('valinput').value)"></input>
+        <button onclick="onclickadd(document.getElementById('valinput').value)">Add to MPQ</button>
+        <br></br>
+        <br></br>
+        <button onclick="onclicknext()">Next</button>
+        <button onclick="onclickrun()">Run</button>
+        <button onClick="onclickreset()" >Reset</button>
+        <div style="border: 3px; border-style: solid; border-color: black; padding-left: 1em; padding-bottom: 10em; background-color: black; color: white; ">
+            <p id="outputtext" style="font-size: large; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;"></p>
+        </div>
+        
+    </body>
+
+    <script src="./HeapSort/heapsort.js"></script>
+</html>
