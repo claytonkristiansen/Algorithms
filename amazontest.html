@@ -6467,15 +6467,25 @@ vote(false);
 
 
 
+<button onclick="OnClickDisplay()">Find True Size</button>
+<br></br>
+
+<div id="showdiv" style="display:none;">
+  <p>Enter your height: <input id="heightinput"></input></p>
+  <p>Enter your waist size: <input id="waistinput"></input></p>
+  <p>Enter your shoulder width: <input id="shoulderinput"></input></p>
+  <p>Enter your chest size: <input id="chestinput"></input></p>
+  <p>Enter your bust (optional): <input id="bustinput"></input></p> 
+  <button onclick="OnClickTrueSize()">Calculate True Size</button>
+
+  <br></br>
+  <p>Your true height for ELITE FAN SHOP is <b id="companyheight">#####</b></p>
+  <p>Your true waist size for ELITE FAN SHOP is <b id="companywaistsize">#####</b></p>
+  <p>Your true shoulder width for ELITE FAN SHOP is <b id="companyshoulderwidth">#####</b></p>
+  <br></br>
+</div>
 
 
-
-<p>Enter your height: <input id="heightinput"></input></p>
-<p>Enter your waist size: <input id="waistinput"></input></p>
-<p>Enter your shoulder width: <input id="shoulderinput"></input></p>
-<p>Enter your chest size: <input id="chestinput"></input></p>
-<p>Enter your bust (optional): <input id="bustinput"></input></p> 
-<button onclick="OnClickTrueSize()">Calculate True Size</button>
 <script>
     function OnClickTrueSize()
     {
@@ -6483,12 +6493,27 @@ vote(false);
         document.getElementById("companywaistsize").innerHTML = 2 * document.getElementById("waistinput").value;
         document.getElementById("companyshoulderwidth").innerHTML = 2 * document.getElementById("shoulderinput").value;
         //document.getElementById("companyheight").innerHTML = 2 * document.getElementById("heightinput").value;
+
+
+    }
+
+    var showing = false;
+
+    function OnClickDisplay()
+    {
+      if(showing)
+      {
+        document.getElementById("showdiv").style = "display:none";
+        showing = false;
+      }
+      else
+      {
+        document.getElementById("showdiv").style = "display:block";
+        showing = true;
+      }
     }
 </script>
-<br></br>
-<p>Your true height for ELITE FAN SHOP is <b id="companyheight">#####</b></p>
-<p>Your true waist size for ELITE FAN SHOP is <b id="companywaistsize">#####</b></p>
-<p>Your true shoulder width for ELITE FAN SHOP is <b id="companyshoulderwidth">#####</b></p>
+
 <div class="a-section">
 
 
