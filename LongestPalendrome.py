@@ -1,32 +1,43 @@
-numLoops = 0
 class Solution(object):
+    def isPalendrome(self, s, leftI, rightI):
+        done = False
+        while not done:
+            if leftI >= rightI:
+                return True
+            if s[leftI] != s[rightI]:
+                return False
+            leftI += 1
+            rightI -= 1
+
     def growPalendrome(self, s, substrIdx, letterSet):
-        global numLoops
         leftPalIdx = substrIdx[0]
         rightPalIdx = substrIdx[1]
-        numLoops += 1
+        strLen = len(s)
 
-        if leftPalIdx > 0 and rightPalIdx < (len(s) - 1):
+        # Expand quickly if both sides match
+        if leftPalIdx > 0 and rightPalIdx < (strLen - 1):
             if s[leftPalIdx - 1] == s[rightPalIdx + 1]:
                 substrIdx[0] -= 1
                 substrIdx[1] += 1
                 if not (s[leftPalIdx - 1] in letterSet):
                     letterSet.append(s[leftPalIdx - 1])
                 return True
+        # If still only found one letter and matches on left, expand to left
         if leftPalIdx > 0 and len(letterSet) <= 1:
             if s[leftPalIdx] == s[leftPalIdx - 1]:
                 substrIdx[0] -= 1
                 if not (s[leftPalIdx - 1] in letterSet):
                     letterSet.append(s[leftPalIdx - 1])
                 return True
-        if rightPalIdx < (len(s) - 1) and len(letterSet) <= 1:
+        # If still only found one letter and matches on right, expand to right
+        if rightPalIdx < (strLen - 1) and len(letterSet) <= 1:
             if (s[rightPalIdx] == s[rightPalIdx + 1]):
                 substrIdx[1] += 1
                 if not (s[rightPalIdx + 1] in letterSet):
                     letterSet.append(s[rightPalIdx + 1])
                 return True
 
-        if rightPalIdx < (len(s) - 2):
+        if rightPalIdx < (strLen - 2):
             searchIndices = []
             for index in range(rightPalIdx, leftPalIdx - 1, -1):
                 if s[rightPalIdx + 1] == s[index]:
@@ -37,10 +48,12 @@ class Solution(object):
                 done = False
                 while not done:
                     if checkIdx == leftPalIdx:
-                        substrIdx[1] = substrIdx[1] + sizeDiscovered
-                        letterSet.extend(list(s[rightPalIdx:substrIdx[1]]))
-                        return True
-                    elif s[checkIdx - 1] == s[rightPalIdx + sizeDiscovered + 1]:
+                        if self.isPalendrome(s, index + 1, rightPalIdx):
+                            substrIdx[1] = substrIdx[1] + sizeDiscovered
+                            letterSet.extend(list(s[rightPalIdx:substrIdx[1]]))
+                            return True
+                        done = True
+                    elif ((checkIdx > 0) and (rightPalIdx + sizeDiscovered + 1) < strLen) and (s[checkIdx - 1] == s[rightPalIdx + sizeDiscovered + 1]):
                         sizeDiscovered += 1
                         checkIdx -= 1
                     else:
@@ -56,10 +69,12 @@ class Solution(object):
                 done = False
                 while not done:
                     if checkIdx == rightPalIdx:
-                        substrIdx[0] = substrIdx[0] - sizeDiscovered
-                        letterSet.extend(list(s[substrIdx[0]:leftPalIdx]))
-                        return True
-                    elif s[checkIdx + 1] == s[leftPalIdx - sizeDiscovered - 1]:
+                        if self.isPalendrome(s, leftPalIdx, index - 1):
+                            substrIdx[0] = substrIdx[0] - sizeDiscovered
+                            letterSet.extend(list(s[substrIdx[0]:leftPalIdx]))
+                            return True
+                        done = True
+                    elif ((checkIdx + 1 < strLen) and (leftPalIdx - sizeDiscovered) > 0) and (s[checkIdx + 1] == s[leftPalIdx - sizeDiscovered - 1]):
                         sizeDiscovered += 1
                         checkIdx += 1
                     else:
@@ -94,8 +109,7 @@ class Solution(object):
 
 
 dut = Solution()
-s = "anananana"
+s = "1232100123210012321"
 longestPalStr = dut.longestPalindrome(s)
 print(longestPalStr)
-print(f"runloop: {numLoops}")
 print(f"Str len: {len(s)}")
