@@ -45,7 +45,15 @@ class Solution(object):
                 return True
 
         if rightPalIdx < (strLen - 2):
-            for index in range(leftPalIdx, rightPalIdx + 1):
+            if rightPalIdx < (strLen / 2):
+                iterStart = rightPalIdx
+                iterEnd = leftPalIdx - 1
+                step = -1
+            else:
+                iterStart = leftPalIdx
+                iterEnd = rightPalIdx + 1
+                step = 1
+            for index in range(iterStart, iterEnd, step):
                 if s[rightPalIdx + 1] == s[index]:
                     checkIdx = index
                     sizeDiscovered = 1
@@ -63,7 +71,7 @@ class Solution(object):
                             done = True
         if leftPalIdx > 1:
             searchIndices = []
-            for index in range(rightPalIdx, leftPalIdx - 1, -1):
+            for index in range(leftPalIdx, rightPalIdx + 1):
                 if s[leftPalIdx - 1] == s[index]:
                     checkIdx = index
                     sizeDiscovered = 1
