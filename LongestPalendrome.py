@@ -1,8 +1,14 @@
 class Solution(object):
-    def isPalendrome(self, s, leftI, rightI):
+    knownPalendromes = []
+    def isPalendrome(self, s, left, right):
+        if [left, right] in self.knownPalendromes:
+            return True
+        leftI = left
+        rightI = right
         done = False
         while not done:
             if leftI >= rightI:
+                self.knownPalendromes.append([left, right])
                 return True
             if s[leftI] != s[rightI]:
                 return False
@@ -10,6 +16,7 @@ class Solution(object):
             rightI -= 1
 
     def growPalendrome(self, s, substrIdx, letterSet):
+        print(len(self.knownPalendromes))
         leftPalIdx = substrIdx[0]
         rightPalIdx = substrIdx[1]
         strLen = len(s)
@@ -38,47 +45,40 @@ class Solution(object):
                 return True
 
         if rightPalIdx < (strLen - 2):
-            searchIndices = []
-            for index in range(rightPalIdx, leftPalIdx - 1, -1):
+            for index in range(leftPalIdx, rightPalIdx + 1):
                 if s[rightPalIdx + 1] == s[index]:
-                    searchIndices.append(index)
-            for index in searchIndices:
-                checkIdx = index
-                sizeDiscovered = 1
-                done = False
-                while not done:
-                    if checkIdx == leftPalIdx:
-                        if self.isPalendrome(s, index + 1, rightPalIdx):
-                            substrIdx[1] = substrIdx[1] + sizeDiscovered
-                            letterSet.extend(list(s[rightPalIdx:substrIdx[1]]))
-                            return True
-                        done = True
-                    elif ((checkIdx > 0) and (rightPalIdx + sizeDiscovered + 1) < strLen) and (s[checkIdx - 1] == s[rightPalIdx + sizeDiscovered + 1]):
-                        sizeDiscovered += 1
-                        checkIdx -= 1
-                    else:
-                        done = True
+                    checkIdx = index
+                    sizeDiscovered = 1
+                    done = False
+                    while not done:
+                        if checkIdx == leftPalIdx:
+                            if self.isPalendrome(s, index + 1, rightPalIdx):
+                                substrIdx[1] = substrIdx[1] + sizeDiscovered
+                                return True
+                            done = True
+                        elif ((checkIdx > 0) and (rightPalIdx + sizeDiscovered + 1) < strLen) and (s[checkIdx - 1] == s[rightPalIdx + sizeDiscovered + 1]):
+                            sizeDiscovered += 1
+                            checkIdx -= 1
+                        else:
+                            done = True
         if leftPalIdx > 1:
             searchIndices = []
-            for index in range(leftPalIdx, rightPalIdx + 1):
+            for index in range(rightPalIdx, leftPalIdx - 1, -1):
                 if s[leftPalIdx - 1] == s[index]:
-                    searchIndices.append(index)
-            for index in searchIndices:
-                checkIdx = index
-                sizeDiscovered = 1
-                done = False
-                while not done:
-                    if checkIdx == rightPalIdx:
-                        if self.isPalendrome(s, leftPalIdx, index - 1):
-                            substrIdx[0] = substrIdx[0] - sizeDiscovered
-                            letterSet.extend(list(s[substrIdx[0]:leftPalIdx]))
-                            return True
-                        done = True
-                    elif ((checkIdx + 1 < strLen) and (leftPalIdx - sizeDiscovered) > 0) and (s[checkIdx + 1] == s[leftPalIdx - sizeDiscovered - 1]):
-                        sizeDiscovered += 1
-                        checkIdx += 1
-                    else:
-                        done = True
+                    checkIdx = index
+                    sizeDiscovered = 1
+                    done = False
+                    while not done:
+                        if checkIdx == rightPalIdx:
+                            if self.isPalendrome(s, leftPalIdx, index - 1):
+                                substrIdx[0] = substrIdx[0] - sizeDiscovered
+                                return True
+                            done = True
+                        elif ((checkIdx + 1 < strLen) and (leftPalIdx - sizeDiscovered) > 0) and (s[checkIdx + 1] == s[leftPalIdx - sizeDiscovered - 1]):
+                            sizeDiscovered += 1
+                            checkIdx += 1
+                        else:
+                            done = True
             
 
         return False
